@@ -491,3 +491,4 @@ with tab5:
         cum_ebitda = s["Cumulative EBITDA ($M)"].values
         payback_yr = next((s["Year"].iloc[i] for i, (c, e) in enumerate(zip(cum_capex, cum_ebitda)) if e >= c), "Beyond ramp")
         st.write(f"**{profile}**: program break-even at **{payback_yr}**")
+
