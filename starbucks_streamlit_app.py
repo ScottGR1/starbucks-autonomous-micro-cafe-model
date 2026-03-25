@@ -132,15 +132,15 @@ with tab1:
         fig_gap = go.Figure()
         fig_gap.add_trace(go.Bar(
             name="FY2025 Revenue", x=["FY2025"], y=[fy25_revenue_m/1000],
-            marker_color="1E3932", text=[f"${fy25_revenue_m/1000:.1f}B"], textposition="inside",
+            marker_color="#1E3932", text=[f"${fy25_revenue_m/1000:.1f}B"], textposition="inside",
         ))
         fig_gap.add_trace(go.Bar(
             name=f"Growth Gap ({growth_gap_pct:.0%})", x=["FY2025"], y=[growth_needed_m/1000],
-            marker_color="CBA258", text=[f"+${growth_needed_m/1000:.2f}B needed"], textposition="outside",
+            marker_color="#CBA258", text=[f"+${growth_needed_m/1000:.2f}B needed"], textposition="outside",
         ))
         fig_gap.add_trace(go.Bar(
             name="AI Micro-Café Revenue", x=["With AI Kiosks"], y=[total_kiosk_rev_m/1000],
-            marker_color="00704A", text=[f"${total_kiosk_rev_m/1000:.2f}B"], textposition="outside",
+            marker_color="#00704A", text=[f"${total_kiosk_rev_m/1000:.2f}B"], textposition="outside",
         ))
         fig_gap.update_layout(
             barmode="stack", title="Revenue Gap vs AI Kiosk Solution ($B)",
@@ -220,7 +220,7 @@ with tab1:
     fig_margin.add_trace(go.Bar(
         x=["Current Starbucks", "With AI Kiosks"],
         y=[current_margin*100, combined_margin*100],
-        marker_color=["1E3932", "00704A"],
+        marker_color=["#1E3932", "#00704A"],
         text=[f"{current_margin:.1%}", f"{combined_margin:.1%}"],
         textposition="outside",
     ))
@@ -255,8 +255,8 @@ with tab2:
         cats = ["Revenue", "OpEx", "EBITDA"]
         trad_vals = [trad_store_rev_k, trad_opex_k, trad_ebitda_k]
         ai_vals   = [ai_rev_per_kiosk_k, ai_opex_k, ai_ebitda_k]
-        comp_fig.add_trace(go.Bar(name="Traditional Store", x=cats, y=trad_vals, marker_color="6B6B6B"))
-        comp_fig.add_trace(go.Bar(name="AI Micro-Café",     x=cats, y=ai_vals,   marker_color="00704A"))
+        comp_fig.add_trace(go.Bar(name="Traditional Store", x=cats, y=trad_vals, marker_color="#6B6B6B"))
+        comp_fig.add_trace(go.Bar(name="AI Micro-Café",     x=cats, y=ai_vals,   marker_color="#00704A"))
         comp_fig.update_layout(barmode="group", title="Unit P&L Comparison ($K)",
                                template="simple_white", height=400, yaxis_title="$K")
         st.plotly_chart(comp_fig, use_container_width=True)
@@ -269,7 +269,7 @@ with tab2:
             "AI Kiosk ($K)":   [ai_labor_k, 40, ai_opex_k - ai_labor_k - 40],
         })
         fig_opex = go.Figure()
-        for col, color in [("Traditional ($K)", "6B6B6B"), ("AI Kiosk ($K)", "00704A")]:
+        for col, color in [("Traditional ($K)", "#6B6B6B"), ("AI Kiosk ($K)", "#00704A")]:
             fig_opex.add_trace(go.Bar(name=col, x=opex_breakdown["Cost Line"],
                                       y=opex_breakdown[col], marker_color=color))
         fig_opex.update_layout(barmode="group", title="Operating Cost Breakdown ($K)",
@@ -288,10 +288,10 @@ with tab2:
 
     fig_24 = go.Figure()
     fig_24.add_trace(go.Scatter(x=hours, y=traditional_curve, name="Traditional Store",
-                                 line=dict(color="6B6B6B", width=3, dash="dash"), mode="lines"))
+                                 line=dict(color="#6B6B6B", width=3, dash="dash"), mode="lines"))
     fig_24.add_trace(go.Scatter(x=hours, y=ai_curve, name="AI Kiosk (24/7)",
-                                 line=dict(color="00704A", width=3), mode="lines"))
-    fig_24.add_vline(x=hours_traditional, line_dash="dot", line_color="C0392B",
+                                 line=dict(color="#00704A", width=3), mode="lines"))
+    fig_24.add_vline(x=hours_traditional, line_dash="dot", line_color="#C0392B",
                      annotation_text="Traditional closes", annotation_position="top right")
     fig_24.update_layout(title="Annual Revenue Potential by Operating Hours ($K)",
                           xaxis_title="Daily Operating Hours", yaxis_title="Annual Revenue ($K)",
@@ -316,10 +316,10 @@ with tab3:
             measure=["absolute", "relative", "relative", "relative", "total"],
             x=["Revenue", "Rent/Lease", "Labor (AI)", "Other OpEx", "EBITDA"],
             y=[ai_rev_per_kiosk_k, -40, -ai_labor_k, -(ai_opex_k - ai_labor_k - 40), ai_ebitda_k],
-            connector={"line": {"color": "888888"}},
-            increasing={"marker": {"color": "00704A"}},
-            decreasing={"marker": {"color": "C0392B"}},
-            totals={"marker": {"color": "CBA258"}},
+            connector={"line": {"color": "#888888"}},
+            increasing={"marker": {"color": "#00704A"}},
+            decreasing={"marker": {"color": "#C0392B"}},
+            totals={"marker": {"color": "#CBA258"}},
             texttemplate="%{y:,.0f}K",
             textposition="outside",
         ))
@@ -329,14 +329,14 @@ with tab3:
     with c2:
         yrs = np.arange(0, 8.1, 0.25)
         fig_pb = go.Figure()
-        fig_pb.add_hline(y=ai_capex_k, line_dash="dash", line_color="C0392B",
+        fig_pb.add_hline(y=ai_capex_k, line_dash="dash", line_color="#C0392B",
                          annotation_text=f"AI CapEx = ${ai_capex_k}K")
-        fig_pb.add_hline(y=trad_capex_k, line_dash="dot", line_color="888888",
+        fig_pb.add_hline(y=trad_capex_k, line_dash="dot", line_color="#888888",
                          annotation_text=f"Traditional CapEx = ${trad_capex_k}K")
         fig_pb.add_trace(go.Scatter(x=yrs, y=yrs * ai_ebitda_k, name="AI Kiosk Cumulative EBITDA",
-                                     line=dict(color="00704A", width=3)))
+                                     line=dict(color="#00704A", width=3)))
         fig_pb.add_trace(go.Scatter(x=yrs, y=yrs * trad_ebitda_k, name="Traditional Store Cumulative EBITDA",
-                                     line=dict(color="888888", width=2, dash="dash")))
+                                     line=dict(color="#888888", width=2, dash="dash")))
         fig_pb.update_layout(title="CapEx Payback Comparison", xaxis_title="Years",
                               yaxis_title="Cumulative EBITDA ($K)", template="simple_white", height=420)
         st.plotly_chart(fig_pb, use_container_width=True)
@@ -351,7 +351,7 @@ with tab3:
     fig_fcf = go.Figure(go.Bar(
         x=["AI Program CapEx", "FY2025 FCF"],
         y=[total_capex_m, fcf_2025],
-        marker_color=["C0392B" if total_capex_m > fcf_2025 else "00704A", "00704A"],
+        marker_color=["#C0392B" if total_capex_m > fcf_2025 else "#00704A", "#00704A"],
         text=[f"${total_capex_m:,.0f}M", f"${fcf_2025:,.0f}M"],
         textposition="outside",
     ))
@@ -405,10 +405,10 @@ with tab4:
     ebitda_range = [ai_rev_per_kiosk_k * (1 - o) for o in opex_range]
     fig_opex_sens = go.Figure(go.Scatter(
         x=[f"{o:.0%}" for o in opex_range], y=ebitda_range,
-        mode="lines+markers", line=dict(color="00704A", width=3),
+        mode="lines+markers", line=dict(color="#00704A", width=3),
         text=[f"${e:,.0f}K" for e in ebitda_range], textposition="top center",
     ))
-    fig_opex_sens.add_vline(x=f"{ai_opex_pct:.0%}", line_dash="dash", line_color="CBA258",
+    fig_opex_sens.add_vline(x=f"{ai_opex_pct:.0%}", line_dash="dash", line_color="#CBA258",
                              annotation_text="Current assumption")
     fig_opex_sens.update_layout(title="EBITDA per Kiosk at Different OpEx Margins",
                                 xaxis_title="OpEx Margin (%)", yaxis_title="EBITDA ($K)",
@@ -456,10 +456,10 @@ with tab5:
     c1, c2 = st.columns(2)
     with c1:
         fig_r = go.Figure()
-        fig_r.add_trace(go.Bar(x=sel["Year"], y=sel["New Kiosks"], name="New / Year", marker_color="CBA258"))
+        fig_r.add_trace(go.Bar(x=sel["Year"], y=sel["New Kiosks"], name="New / Year", marker_color="#CBA258"))
         fig_r.add_trace(go.Scatter(x=sel["Year"], y=sel["Cumulative Kiosks"],
                                     name="Cumulative", yaxis="y2",
-                                    mode="lines+markers", line=dict(color="00704A", width=3)))
+                                    mode="lines+markers", line=dict(color="#00704A", width=3)))
         fig_r.update_layout(title=f"{choice} Deployment", yaxis=dict(title="New Kiosks"),
                             yaxis2=dict(title="Cumulative", overlaying="y", side="right"),
                             template="simple_white", height=400, legend=dict(orientation="h"))
@@ -468,10 +468,10 @@ with tab5:
     with c2:
         fig_e = go.Figure()
         fig_e.add_trace(go.Bar(x=sel["Year"], y=sel["Annual CapEx ($M)"],
-                                name="Annual CapEx Spend", marker_color="C0392B"))
+                                name="Annual CapEx Spend", marker_color="#C0392B"))
         fig_e.add_trace(go.Scatter(x=sel["Year"], y=sel["Cumulative EBITDA ($M)"],
                                     name="Cumulative EBITDA", yaxis="y2",
-                                    mode="lines+markers", line=dict(color="00704A", width=3)))
+                                    mode="lines+markers", line=dict(color="#00704A", width=3)))
         fig_e.update_layout(title="CapEx Spend vs Cumulative EBITDA ($M)",
                             yaxis=dict(title="Annual CapEx ($M)"),
                             yaxis2=dict(title="Cumulative EBITDA ($M)", overlaying="y", side="right"),
